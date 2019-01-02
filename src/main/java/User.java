@@ -3,12 +3,16 @@ import java.util.Scanner;
 
 public class User {
 	private String firstName, lastName, username, password;
+	private boolean isAdmin;
+	
 	private Scanner input = new Scanner(System.in);
+	
 	protected User() {
 		this.setFirstName();
 		this.setLastName();
 		this.setUsername();
 		this.setPassword();
+		this.setIsAdmin();
 	}
 	
 	protected void setFirstName() {
@@ -46,7 +50,7 @@ public class User {
 					+ "*A valid username must begin with a letter and contain only numbers and letters*");
 			String inputUsername = input.next();
 			if(!Character.isLetter(inputUsername.charAt(0)) || !inputUsername.chars().allMatch(Character::isLetterOrDigit)) {
-				System.out.println("This username is not valid, please try again.");
+				System.out.println("This username is not valid.\nEnter a valid username.");
 			}else {
 				isLegalUsername = true;
 				this.username = inputUsername;
@@ -55,7 +59,23 @@ public class User {
 	}
 	
 	protected void setPassword() {
-		
+		boolean isLegalPassword = false;
+		System.out.println("Enter a valid password:\n"+
+				"*A valid password can contain letters, numbers, and the following symbols: [!,@,#,$,*,&]*");
+		while(!isLegalPassword) {
+			String inputPassword = input.next();
+			if(!inputPassword.matches("[a-zA-Z0-9|!|@|#|$|*|&]*$")) {
+				System.out.println("This password is not valid.\nPlease enter a valid password."
+						+"\n*A valid password can contain letters, numbers, and the following symbols: [!,@,#,$,*,&]*");
+			}else {
+				isLegalPassword = true;
+				this.password = inputPassword;
+			}
+		}
+	}
+	
+	protected void setIsAdmin(){
+		this.isAdmin = false;
 	}
 		
 }
