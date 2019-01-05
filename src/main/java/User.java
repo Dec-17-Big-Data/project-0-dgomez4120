@@ -2,8 +2,9 @@ import java.util.Scanner;
 
 
 public class User {
-	private String firstName, lastName, username, password;
-	private boolean isAdmin;
+	private int userId;
+	private String firstName, lastName, username;
+	private boolean isAdmin, isOpen;
 	
 	private Scanner input = new Scanner(System.in);
 	
@@ -11,8 +12,16 @@ public class User {
 		this.setFirstName();
 		this.setLastName();
 		this.setUsername();
-		this.setPassword();
-		this.setIsAdmin();
+		this.setIsAdmin(false);
+		this.setIsOpen(true);
+	}
+	protected User(int userId, String firstName, String lastName, String username, boolean isAdmin, boolean isOpen) {
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.isAdmin = isAdmin;
+		this.isOpen = isOpen;
 	}
 	
 	protected void setFirstName() {
@@ -58,24 +67,40 @@ public class User {
 		}
 	}
 	
-	protected void setPassword() {
-		boolean isLegalPassword = false;
-		System.out.println("Enter a valid password:\n"+
-				"*A valid password can contain letters, numbers, and the following symbols: [!,@,#,$,*,&]*");
-		while(!isLegalPassword) {
-			String inputPassword = input.next();
-			if(!inputPassword.matches("[a-zA-Z0-9|!|@|#|$|*|&]*$")) {
-				System.out.println("This password is not valid.\nPlease enter a valid password."
-						+"\n*A valid password can contain letters, numbers, and the following symbols: [!,@,#,$,*,&]*");
-			}else {
-				isLegalPassword = true;
-				this.password = inputPassword;
-			}
-		}
+	protected void setIsAdmin(boolean flag){
+		this.isAdmin = flag;
 	}
 	
-	protected void setIsAdmin(){
-		this.isAdmin = false;
+	protected void setIsOpen(boolean flag) {
+		this.isOpen = flag;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
+	protected String getFirstName() {
+		return this.firstName;
+	}
+	
+	protected String getLastName() {
+		return this.lastName;
+	}
+	
+	protected String getUsername() {
+		return this.username;
+	}
+	
+	protected boolean isAdmin() {
+		return this.isAdmin;
+	}
+	
+	protected boolean isOpen() {
+		return this.isOpen;
+	}
+	
+	protected int getUserId() {
+		return this.userId;
 	}
 		
 }
