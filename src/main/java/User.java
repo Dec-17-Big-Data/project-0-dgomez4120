@@ -27,13 +27,14 @@ public class User {
 	protected void setFirstName() {
 		boolean isLegalFirstName = false;
 		while(!isLegalFirstName) {
-			System.out.println("Enter your first name: ");
+			System.out.println("First name: ");
 			String inputFirstName = input.next();
 			if(!inputFirstName.chars().allMatch(Character::isLetter)) {
-				System.out.println("Your first name must only contain letters, please try again.");
+				System.out.println("The first name must only contain letters, please try again.");
 			}else {
 				isLegalFirstName = true;
-				this.firstName = inputFirstName;
+				inputFirstName = inputFirstName.substring(0,1).toUpperCase()+inputFirstName.substring(1);
+				this.firstName = inputFirstName.trim();
 			}
 		}
 	}
@@ -41,13 +42,14 @@ public class User {
 	protected void setLastName() {
 		boolean isLegalLastName = false;
 		while(!isLegalLastName) {
-			System.out.println("Enter your last name: ");
+			System.out.println("Last name: ");
 			String inputLastName = input.next();
 			if(!inputLastName.chars().allMatch(Character::isLetter)) {
-				System.out.println("Your last name must only contain letters, please try again.");
+				System.out.println("The last name must only contain letters, please try again.");
 			}else {
 				isLegalLastName = true;
-				this.lastName = inputLastName;
+				inputLastName = inputLastName.substring(0, 1).toUpperCase()+inputLastName.substring(1);
+				this.lastName = inputLastName.trim();
 			}
 		}
 	}

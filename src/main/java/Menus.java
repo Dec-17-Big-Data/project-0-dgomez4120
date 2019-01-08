@@ -1,8 +1,12 @@
+
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menus {
-
-	protected void toUserMenu(User user) {
+	
+	private static Scanner input = new Scanner(System.in);
+	
+	protected static void toUserMenu(User user) {
 		if(user.isAdmin()) {
 			superMenu(user);
 		}else {
@@ -11,49 +15,61 @@ public class Menus {
 	}
 	
 	protected static void superMenu(User user) {
-		Scanner input = new Scanner(System.in);
 		
+		boolean isValidCommand = false;
+		Console.clearScreen();
 		System.out.println("Welcome to JDBC Bank, "+user.getFirstName()+" "+user.getLastName());
 		System.out.println("How can we help you today?");
-		System.out.println("Type out one of the following commands:");
-		System.out.println("'VIEW USERS'\t'VIEW ACCOUNTS'\t'CREATE USER'\t'DELETE USER'\t'VIEW PERSONAL ACCOUNTS'");
 		
-		String inputMethod = input.nextLine();
-		
-		if(inputMethod.toLowerCase().trim().equals("view users")) {
+		while(!isValidCommand) {
+			System.out.println("Type out one of the following commands:");
+			System.out.println("'ADMINISTRATIVE'\t'PERSONAL ACCOUNTS'\t'LOGOUT'");
 			
-		}else if(inputMethod.toLowerCase().trim().equals("view accounts")) {
+			String inputMethod = input.nextLine();
 			
-		}else if(inputMethod.toLowerCase().trim().equals("create user")) {
-			
-		}else if(inputMethod.toLowerCase().trim().equals("delete user")) {
-			
-		}else if(inputMethod.toLowerCase().trim().equals("view personal accounts")) {
-			
-		}else {
-			System.out.println("The input did not match any of the listed commands.");
+			if(inputMethod.toLowerCase().trim().equals("administrative")) {
+				isValidCommand = true;
+				UserMgmt.administrative(user);
+			}else if(inputMethod.toLowerCase().trim().equals("personal accounts")) {
+				isValidCommand = true;
+				try{AcctMgmt.viewAcct(user);}catch(SQLException e) {}
+			}else if(inputMethod.toLowerCase().trim().equals("logout")) {
+				isValidCommand = true;
+				Console.main(null);
+			}else {
+				System.out.println("The input did not match any of the listed commands.");
+			}
 		}
+	
 	}
 	
 	protected static void userMenu(User user) {
-		Scanner input = new Scanner(System.in);
+		Console.clearScreen();
+		boolean isValidCommand = false;
 		
 		System.out.println("Welcome to JDBC Bank, "+user.getFirstName()+" "+user.getLastName());
 		System.out.println("How can we help you today?");
-		System.out.println("Type out one of the following commands:");
-		System.out.println("'VIEW ACCOUNTS'\t'VIEW TRANSACTIONS'\t'DELETE ACCOUNTS'");
 		
-		String inputMethod = input.nextLine();
-		
-		if(inputMethod.toLowerCase().trim().equals("view accounts")) {
+		while(!isValidCommand) {
+			System.out.println("Type out one of the following commands:");
+			System.out.println("'VIEW ACCOUNTS'\t'LOGOUT'");
 			
-		}else if(inputMethod.toLowerCase().trim().equals("view transactions")) {
+			String inputMethod = input.nextLine();
 			
-		}else if(inputMethod.toLowerCase().trim().equals("delete accounts")) {
-			
-		}else {
-			System.out.println("The input did not match any of the listed commands.");
+			if(inputMethod.toLowerCase().trim().equals("view accounts")) {
+				isValidCommand = true;
+				try{
+					AcctMgmt.viewAcct(user);
+				}catch(SQLException e) {}
+			}else if(inputMethod.toLowerCase().trim().equals("logout")) {
+				isValidCommand = true;
+				Console.main(null);
+			}else {
+				System.out.println("The input did not match any of the listed commands.");
+			}
 		}
+	
 	}
+	
 	
 }
