@@ -1,0 +1,13 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+JDBCBank,default,Account,87,18,14,0,29,7,20,1,13,1
+JDBCBank,default,User,231,27,30,0,67,9,30,1,15,1
+JDBCBank,default,NegativeNumericException,6,0,0,0,3,0,1,0,1,0
+JDBCBank,default,Transaction,52,0,0,0,22,0,15,0,15,0
+JDBCBank,default,AcctMgmt,296,0,30,0,58,0,19,0,4,0
+JDBCBank,default,Console,128,0,10,0,40,0,9,0,4,0
+JDBCBank,default,Menus,151,0,16,0,45,0,13,0,5,0
+JDBCBank,default,UserDaoImpl,383,128,46,12,98,34,30,7,5,3
+JDBCBank,default,UserMgmt,323,0,22,0,70,0,18,0,7,0
+JDBCBank,default,AcctDaoImpl,346,3,36,0,94,1,23,1,5,1
+JDBCBank,default,TranDaoImpl,249,0,24,0,72,0,15,0,3,0
+JDBCBank,default,ConnectionUtil,22,51,0,0,7,16,1,2,1,2

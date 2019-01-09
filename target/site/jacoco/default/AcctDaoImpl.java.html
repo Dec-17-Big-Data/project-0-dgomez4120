@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AcctDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JDBCBank</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">AcctDaoImpl.java</span></div><h1>AcctDaoImpl.java</h1><pre class="source lang-java linenums">import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
+<span class="fc" id="L10">public class AcctDaoImpl implements AcctDao {</span>
+
+	@Override
+	public List&lt;Account&gt; getAllAccounts() {
+<span class="nc" id="L14">		List&lt;Account&gt; accounts = new ArrayList&lt;Account&gt;();</span>
+		
+<span class="nc" id="L16">		Connection con = ConnectionUtil.getConnection();</span>
+<span class="nc" id="L17">		String sql = &quot;select * from accounts&quot;;</span>
+		PreparedStatement ps;
+		ResultSet rs;
+		try {
+<span class="nc" id="L21">			ps = con.prepareStatement(sql);</span>
+<span class="nc" id="L22">			rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">			while(rs.next()) {</span>
+				boolean status;
+<span class="nc bnc" id="L25" title="All 2 branches missed.">				if(rs.getInt(5)==0) {status = true;}else {status = false;}</span>
+<span class="nc" id="L26">				Account account = new Account();</span>
+<span class="nc" id="L27">				account.setAccoutNumber(rs.getInt(1));</span>
+<span class="nc" id="L28">				account.setUserId(rs.getInt(2));</span>
+<span class="nc" id="L29">				account.setAccountBalance(rs.getFloat(3));</span>
+<span class="nc" id="L30">				account.setCreationDay(rs.getDate(4).toLocalDate());</span>
+<span class="nc" id="L31">				account.setOpen(status);</span>
+<span class="nc" id="L32">				accounts.add(account);</span>
+			}
+<span class="nc" id="L34">		}catch(SQLException e) {</span>
+<span class="nc" id="L35">			e.printStackTrace();</span>
+<span class="nc" id="L36">		}finally {</span>
+			try {
+<span class="nc bnc" id="L38" title="All 6 branches missed.">				if(con != null) {</span>
+<span class="nc" id="L39">					con.close();</span>
+				}
+<span class="nc" id="L41">			}catch(SQLException e) {</span>
+<span class="nc" id="L42">				e.printStackTrace();</span>
+			}
+<span class="nc" id="L44">		}</span>
+		
+<span class="nc" id="L46">		return accounts;</span>
+	}
+
+	@Override
+	public List&lt;Account&gt; getUserAccounts(User user) {
+<span class="nc" id="L51">		List&lt;Account&gt; accounts = new ArrayList&lt;Account&gt;();</span>
+		
+<span class="nc" id="L53">		Connection con = ConnectionUtil.getConnection();</span>
+<span class="nc" id="L54">		String sql = &quot;select * from accounts where user_id = ? and is_closed = 0&quot;;</span>
+		PreparedStatement ps;
+		ResultSet rs;
+		try {
+<span class="nc" id="L58">			ps = con.prepareStatement(sql);</span>
+<span class="nc" id="L59">			ps.setInt(1, user.getUserId());</span>
+<span class="nc" id="L60">			rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">			while(rs.next()) {</span>
+				boolean status;
+<span class="nc bnc" id="L63" title="All 2 branches missed.">				if(rs.getInt(5)==0) {status = true;}else {status = false;}</span>
+<span class="nc" id="L64">				Account account = new Account();</span>
+<span class="nc" id="L65">				account.setAccoutNumber(rs.getInt(1));</span>
+<span class="nc" id="L66">				account.setUserId(rs.getInt(2));</span>
+<span class="nc" id="L67">				account.setAccountBalance(rs.getFloat(3));</span>
+<span class="nc" id="L68">				account.setCreationDay(rs.getDate(4).toLocalDate());</span>
+<span class="nc" id="L69">				account.setOpen(status);</span>
+<span class="nc" id="L70">				accounts.add(account);</span>
+			}
+<span class="nc" id="L72">		}catch(SQLException e) {</span>
+<span class="nc" id="L73">			e.printStackTrace();</span>
+<span class="nc" id="L74">		}finally {</span>
+			try {
+<span class="nc bnc" id="L76" title="All 6 branches missed.">				if(con != null) {</span>
+<span class="nc" id="L77">					con.close();</span>
+				}
+<span class="nc" id="L79">			}catch(SQLException e) {</span>
+<span class="nc" id="L80">				e.printStackTrace();</span>
+			}
+<span class="nc" id="L82">		}</span>
+		
+<span class="nc" id="L84">		return accounts;</span>
+	}
+
+	@Override
+	public void createAccount(User user) {
+<span class="nc" id="L89">		Connection con = ConnectionUtil.getConnection();</span>
+<span class="nc" id="L90">		String sql = &quot;call create_acct(?)&quot;;</span>
+		PreparedStatement ps;
+		try {
+<span class="nc" id="L93">			ps = con.prepareStatement(sql);</span>
+<span class="nc" id="L94">			ps.setInt(1, user.getUserId());</span>
+<span class="nc" id="L95">			ps.executeQuery();</span>
+<span class="nc" id="L96">		} catch (SQLException e) {</span>
+<span class="nc" id="L97">			e.printStackTrace();</span>
+<span class="nc" id="L98">		}finally {</span>
+			try {
+<span class="nc bnc" id="L100" title="All 6 branches missed.">				if(con != null) {</span>
+<span class="nc" id="L101">					con.close();</span>
+				}
+<span class="nc" id="L103">			}catch(SQLException e) {</span>
+<span class="nc" id="L104">				e.printStackTrace();</span>
+			}
+<span class="nc" id="L106">		}</span>
+<span class="nc" id="L107">		System.out.println(&quot;Account created!&quot;);</span>
+<span class="nc" id="L108">	}</span>
+
+	@Override
+	public void deleteAccount(User user, List&lt;Account&gt; accounts) {
+<span class="nc" id="L112">		Connection con = ConnectionUtil.getConnection();</span>
+
+<span class="nc" id="L114">		int acctNum = selectAccountNum(accounts);</span>
+		
+<span class="nc" id="L116">		String sql = &quot;call close_acct(?,?)&quot;;</span>
+		PreparedStatement ps;
+		try {
+<span class="nc" id="L119">			ps = con.prepareStatement(sql);</span>
+<span class="nc" id="L120">			ps.setInt(1, user.getUserId());</span>
+<span class="nc" id="L121">			ps.setInt(2, acctNum);</span>
+<span class="nc" id="L122">			ps.executeQuery();</span>
+<span class="nc" id="L123">			System.out.println(&quot;Account Deleted&quot;);</span>
+<span class="nc" id="L124">		}catch(SQLException e) {</span>
+<span class="nc" id="L125">			System.out.println(&quot;Something happened&quot;);</span>
+		}
+<span class="nc" id="L127">	}</span>
+
+	public static int selectAccountNum(List&lt;Account&gt; accounts) {
+<span class="nc" id="L130">		int acctNum = 0;</span>
+<span class="nc" id="L131">		Scanner input = new Scanner(System.in);</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">		if(accounts.size() &gt; 1) {</span>
+<span class="nc" id="L133">			boolean isInvalid = true;</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">			while(isInvalid) {</span>
+<span class="nc" id="L135">				System.out.println(&quot;Select Account:&quot;);</span>
+				try {
+<span class="nc" id="L137">				acctNum = input.nextInt();</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">				if(acctNum &lt; 0) {</span>
+<span class="nc" id="L139">					throw new NegativeNumericException();</span>
+				}
+<span class="nc" id="L141">				}catch(InputMismatchException ime) {</span>
+<span class="nc" id="L142">					System.out.println(&quot;INPUT MUST BE INTEGER&quot;);</span>
+<span class="nc" id="L143">					return selectAccountNum(accounts);</span>
+<span class="nc" id="L144">				}catch(NegativeNumericException nne) {</span>
+<span class="nc" id="L145">					return selectAccountNum(accounts);</span>
+				}
+<span class="nc bnc" id="L147" title="All 2 branches missed.">				for(Account account : accounts) {</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">					if(account.getAccoutNumber() == acctNum) {</span>
+<span class="nc" id="L149">						return account.getAccoutNumber();</span>
+					}
+				}
+			}
+<span class="nc" id="L153">		}else {</span>
+<span class="nc" id="L154">			return accounts.get(0).getAccoutNumber();</span>
+		}
+<span class="nc" id="L156">		System.out.println(&quot;INVALID ACCOUNT NUMBER&quot;);</span>
+<span class="nc" id="L157">		return acctNum;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

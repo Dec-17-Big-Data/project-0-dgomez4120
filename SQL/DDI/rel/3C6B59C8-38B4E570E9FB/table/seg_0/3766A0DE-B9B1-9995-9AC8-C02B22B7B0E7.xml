@@ -1,0 +1,122 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3766A0DE-B9B1-9995-9AC8-C02B22B7B0E7" schemaObject="AF1808A8-DB34-98BA-8DEB-B6ED294E33D8" name="ACCOUNTS">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>DGOMEZ4120</sourceObjSchema>
+<sourceObjName>ACCOUNTS</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:19 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ACCOUNT_NUMBER" id="7D3A1308-CD1C-E70E-47DC-0FA616A1AF76">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>ACCOUNTS</sourceObjSchema>
+<sourceObjName>ACCOUNT_NUMBER</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>16</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,16,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USER_ID" id="432669B3-8D3C-CC56-D566-25721952F341">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>ACCOUNTS</sourceObjSchema>
+<sourceObjName>USER_ID</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1825E503-01F3-BC50-9AFA-148B543EA131" referredColumn="F05781B0-03A5-B39F-0EED-E4C52047EE7E"/>
+</associations>
+</Column>
+<Column name="ACCOUNT_BALANCE" id="E6683DEC-7EE2-8487-BEFD-D63EB353F418">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>ACCOUNTS</sourceObjSchema>
+<sourceObjName>ACCOUNT_BALANCE</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT021</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<defaultValue>(0.00)</defaultValue>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACCOUNT_CREATION" id="438D7CE6-347E-1CB5-7A64-9DFD813BE776">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>ACCOUNTS</sourceObjSchema>
+<sourceObjName>ACCOUNT_CREATION</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<defaultValue>(sysdate)</defaultValue>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_CLOSED" id="2AF47D9B-9934-073D-67C4-937647D83693">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>ACCOUNTS</sourceObjSchema>
+<sourceObjName>IS_CLOSED</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<defaultValue>(0)</defaultValue>
+<ownDataTypeParameters>,1,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DCE99677-93DA-8B7B-E7CE-FA39AD59B205" schemaObject="AF1808A8-DB34-98BA-8DEB-B6ED294E33D8" name="ACCOUNTS_PK">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>DGOMEZ4120</sourceObjSchema>
+<sourceObjName>SYS_C005828</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:21 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7D3A1308-CD1C-E70E-47DC-0FA616A1AF76"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="13188443-EC6F-A411-1B34-7D0FAF9339AA" name="USER_ID_FK1">
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:24 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="432669B3-8D3C-CC56-D566-25721952F341"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
