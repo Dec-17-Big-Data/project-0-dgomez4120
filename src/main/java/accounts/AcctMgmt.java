@@ -45,7 +45,7 @@ public class AcctMgmt {
 		for(Account account : accounts) {
 			String acctNum = String.format("%05d", account.getAccoutNumber());
 			String acctBal = String.format("%4.2f", account.getAccountBalance());
-			System.out.println(acctNum+"\t\t\t"+account.getCreationDay()+"\t\t"+acctBal);	
+			System.out.println(acctNum+"\t\t\t"+account.getCreationDay()+"\t\t\t"+acctBal);	
 		}
 			
 		boolean isAcctMenu = true;
@@ -86,7 +86,7 @@ public class AcctMgmt {
 				if(transaction.isWithdraw()) {transType = "Withdraw";}else {transType = "Deposit\t";}
 				String acctNum = String.format("%05d", transaction.getAccountNumber());
 				String tranAmt = String.format("%4.2f", transaction.getTransactionAmount());
-				System.out.println(acctNum+"\t\t\t"+transType+"\t\t"+transaction.getTransactionDate()
+				System.out.println(acctNum+"\t\t\t"+transType+"\t\t\t"+transaction.getTransactionDate()
 					+" "+transaction.getTransactionTime()+"\t\t"+tranAmt);	
 			}
 	}

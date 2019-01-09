@@ -48,15 +48,15 @@ public class UserMgmt {
 	}
 	
 	private static void userList(List<User> users) {
-		System.out.println("User ID\tFirst Name\tLast Name\tUsername\t\tAdministrator\tActive");
+		System.out.println("User ID\tFirst Name\tLast Name\t\tUsername\t\tAdministrator\tActive");
 		Collections.sort(users);
 		
 		for(User user : users) {
 			String userid = String.format("%05d", user.getUserId());
 			String firstName = String.format("%-15s", user.getFirstName());
-			String lastName = String.format("%-15s", user.getLastName());
+			String lastName = String.format("%-20s",user.getLastName());
 			String username = String.format("%-20s", user.getUsername());
-			System.out.println(userid+"\t"+firstName+"\t"+lastName+"\t"+username+"\t"+user.isAdmin()+"\t\t\t"+user.isOpen());
+			System.out.println(userid+"\t"+firstName+"\t"+lastName+"\t"+username+"\t"+user.isAdmin()+"\t\t\t\t"+user.isOpen());
 		}
 	}
 	
