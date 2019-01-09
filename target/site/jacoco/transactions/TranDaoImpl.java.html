@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TranDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JDBCBank</a> &gt; <a href="index.source.html" class="el_package">transactions</a> &gt; <span class="el_source">TranDaoImpl.java</span></div><h1>TranDaoImpl.java</h1><pre class="source lang-java linenums">package transactions;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+import accounts.AcctDaoImpl;
+import accounts.Account;
+import application.ConnectionUtil;
+import application.NegativeNumericException;
+import users.User;
+
+<span class="nc" id="L18">public class TranDaoImpl implements TransactionDao{</span>
+
+	@Override
+	public List&lt;Transaction&gt; getUserTransactions(User user) {
+<span class="nc" id="L22">		List&lt;Transaction&gt; transactions = new ArrayList&lt;Transaction&gt;(); </span>
+		
+<span class="nc" id="L24">		Connection con = ConnectionUtil.getConnection();</span>
+<span class="nc" id="L25">		String sql = &quot;select * from transactions where user_id = ?&quot;;</span>
+		PreparedStatement ps;
+		try {
+<span class="nc" id="L28">			ps = con.prepareStatement(sql);</span>
+<span class="nc" id="L29">			ps.setInt(1, user.getUserId());</span>
+<span class="nc" id="L30">			ResultSet rs = ps.executeQuery();</span>
+			
+<span class="nc bnc" id="L32" title="All 2 branches missed.">			while(rs.next()) {</span>
+<span class="nc" id="L33">				Transaction transaction = new Transaction();</span>
+<span class="nc" id="L34">				transaction.setTransactionId(rs.getInt(1));</span>
+<span class="nc" id="L35">				transaction.setUserID(rs.getInt(2));</span>
+<span class="nc" id="L36">				transaction.setAccountNumber(rs.getInt(3));</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">				if(rs.getInt(4) == 1) {</span>
+<span class="nc" id="L38">					transaction.setWithdraw(true);</span>
+				}else {
+<span class="nc" id="L40">					transaction.setWithdraw(false);</span>
+				}
+<span class="nc" id="L42">				transaction.setTransactionAmount(rs.getFloat(5));</span>
+<span class="nc" id="L43">				transaction.setTransactionDate(rs.getDate(6).toLocalDate());</span>
+<span class="nc" id="L44">				transaction.setTransactionTime(rs.getTime(6).toLocalTime());</span>
+				
+<span class="nc" id="L46">				transactions.add(transaction);</span>
+<span class="nc" id="L47">			}</span>
+<span class="nc" id="L48">		}catch(SQLException e) {</span>
+<span class="nc" id="L49">			System.out.println(&quot;Something happened&quot;);</span>
+		}finally {
+<span class="nc" id="L51">			try {</span>
+<span class="nc bnc" id="L52" title="All 6 branches missed.">				if(con != null) {</span>
+<span class="nc" id="L53">					con.close();</span>
+				}
+<span class="nc" id="L55">			}catch(SQLException e){</span>
+<span class="nc" id="L56">				e.printStackTrace();</span>
+<span class="nc" id="L57">			}</span>
+<span class="nc" id="L58">		}</span>
+<span class="nc" id="L59">		return transactions;</span>
+	}
+
+	@Override
+	public void createTransaction(User user, boolean isWithdraw, List&lt;Account&gt; accounts) {
+<span class="nc" id="L64">		Connection con = ConnectionUtil.getConnection();</span>
+<span class="nc" id="L65">		Scanner input = new Scanner(System.in);</span>
+		
+<span class="nc" id="L67">		int acctNum = AcctDaoImpl.selectAccountNum(accounts);</span>
+		
+<span class="nc" id="L69">		float transAmt = 0;</span>
+		try {
+<span class="nc" id="L71">			System.out.println(&quot;Amount:&quot;);</span>
+<span class="nc" id="L72">			transAmt= input.nextFloat();</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">			if(transAmt &lt; 0) {</span>
+<span class="nc" id="L74">				throw new NegativeNumericException();</span>
+			}
+<span class="nc" id="L76">		}catch(InputMismatchException ime) {</span>
+<span class="nc" id="L77">			System.out.println(&quot;INPUT MUST BE NUMERIC&quot;);</span>
+<span class="nc" id="L78">			createTransaction(user,isWithdraw,accounts);</span>
+<span class="nc" id="L79">			return;</span>
+<span class="nc" id="L80">		}catch(NegativeNumericException nne) {</span>
+<span class="nc" id="L81">			createTransaction(user,isWithdraw,accounts);</span>
+<span class="nc" id="L82">			return;</span>
+<span class="nc" id="L83">		}</span>
+		
+	
+<span class="nc" id="L86">		String sql = &quot;{call perform_transaction(?, ?, ?, ?, ?)}&quot;;</span>
+		CallableStatement cstmt;
+		
+		int booleanSQL;
+<span class="nc bnc" id="L90" title="All 2 branches missed.">		if(isWithdraw) {</span>
+<span class="nc" id="L91">			booleanSQL = 1;</span>
+		}else {
+<span class="nc" id="L93">			booleanSQL = 0;</span>
+		}
+		
+		try {
+<span class="nc" id="L97">			cstmt = con.prepareCall(sql);</span>
+<span class="nc" id="L98">			cstmt.setInt(1, acctNum);</span>
+<span class="nc" id="L99">			cstmt.setInt(2, booleanSQL);</span>
+<span class="nc" id="L100">			cstmt.setFloat(3, transAmt);</span>
+<span class="nc" id="L101">			cstmt.setInt(4, user.getUserId());</span>
+<span class="nc" id="L102">			cstmt.registerOutParameter(5, java.sql.Types.INTEGER);</span>
+<span class="nc" id="L103">			cstmt.execute();</span>
+<span class="nc" id="L104">			int Successful = cstmt.getInt(5);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">			if(Successful == 1) {</span>
+<span class="nc" id="L106">				System.out.println(&quot;Success&quot;);</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">			}else if(Successful == 2){</span>
+<span class="nc" id="L108">				System.out.println(&quot;OVERDRAW: TRANSACTION CANCELED&quot;);</span>
+			}else {
+<span class="nc" id="L110">				System.out.println(&quot;ERROR&quot;);</span>
+			}
+<span class="nc" id="L112">		}catch(SQLException e) {</span>
+<span class="nc" id="L113">			System.out.println(&quot;Something happened&quot;);</span>
+		}finally {
+<span class="nc" id="L115">			try {</span>
+<span class="nc bnc" id="L116" title="All 6 branches missed.">				if(con != null) {</span>
+<span class="nc" id="L117">					con.close();</span>
+				}
+<span class="nc" id="L119">			}catch(SQLException e){</span>
+<span class="nc" id="L120">				e.printStackTrace();</span>
+<span class="nc" id="L121">			}</span>
+<span class="nc" id="L122">		}</span>
+<span class="nc" id="L123">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

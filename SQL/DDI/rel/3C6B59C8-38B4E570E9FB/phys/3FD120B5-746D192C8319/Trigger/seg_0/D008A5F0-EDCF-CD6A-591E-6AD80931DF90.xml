@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="TRANSACTION_ID_INSERT" directorySegmentName="seg_0" id="D008A5F0-EDCF-CD6A-591E-6AD80931DF90">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>DGOMEZ4120</sourceObjSchema>
+<sourceObjName>TRANSACTION_ID_INSERT</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:24 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<actions>INSERT</actions>
+<body>begin&lt;br/&gt;    select transaction_id_sequence.nextval&lt;br/&gt;    into: new.transaction_id&lt;br/&gt;    from dual;&lt;br/&gt;end transaction_id_insert; &lt;br/&gt;</body>
+<triggerTime>BEFORE</triggerTime>
+<owner>6A37E048-0B88-8D70-282A-2A721FC23C5E</owner>
+<table>9216C26D-DDC2-00F1-0FBA-486B2A26EF97</table>
+</TriggerOraclev10g>

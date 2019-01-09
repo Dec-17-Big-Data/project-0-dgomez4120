@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JDBCBank</a> &gt; <a href="index.source.html" class="el_package">users</a> &gt; <span class="el_source">UserDaoImpl.java</span></div><h1>UserDaoImpl.java</h1><pre class="source lang-java linenums">package users;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import application.ConnectionUtil;
+
+<span class="fc" id="L13">public class UserDaoImpl implements UserDao {</span>
+	
+	@Override
+	public List&lt;User&gt; getAllUsers() {
+<span class="nc" id="L17">		List&lt;User&gt; users = new ArrayList&lt;User&gt;(); </span>
+<span class="nc" id="L18">		Connection con = ConnectionUtil.getConnection();</span>
+<span class="nc" id="L19">		String sql = &quot;select user_id, first_name, last_name, username, is_super, is_open from users&quot;;</span>
+		PreparedStatement ps;
+		ResultSet rs;
+		
+		try {
+<span class="nc" id="L24">			ps = con.prepareStatement(sql);</span>
+<span class="nc" id="L25">			rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">			while(rs.next()) {</span>
+				boolean isAdmin, isOpen;
+<span class="nc bnc" id="L28" title="All 2 branches missed.">				if(rs.getInt(5) == 1) {isAdmin = true;}else {isAdmin = false;}</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">				if(rs.getInt(6) == 1) {isOpen = true;}else {isOpen = false;}</span>
+<span class="nc" id="L30">				int userId = rs.getInt(1);</span>
+<span class="nc" id="L31">				String firstName = rs.getString(2);</span>
+<span class="nc" id="L32">				String lastName = rs.getString(3);</span>
+<span class="nc" id="L33">				String username = rs.getString(4);</span>
+<span class="nc" id="L34">				User newUser = new User(userId,firstName,lastName,username,isAdmin,isOpen);</span>
+<span class="nc" id="L35">				users.add(newUser);</span>
+<span class="nc" id="L36">			}</span>
+<span class="nc" id="L37">		}catch(SQLException e){</span>
+<span class="nc" id="L38">			e.printStackTrace();</span>
+		}finally {
+<span class="nc" id="L40">			try{</span>
+<span class="nc bnc" id="L41" title="All 6 branches missed.">				if(con!=null) {</span>
+<span class="nc" id="L42">					con.close();</span>
+				}
+<span class="nc" id="L44">			}catch(SQLException se) {</span>
+<span class="nc" id="L45">				se.printStackTrace();</span>
+<span class="nc" id="L46">			}</span>
+<span class="nc" id="L47">		}</span>
+		
+<span class="nc" id="L49">		return users;</span>
+	}
+
+	@Override
+	public boolean isUser(String username, String password) {
+<span class="nc" id="L54">		Connection con = ConnectionUtil.getConnection();</span>
+
+<span class="nc" id="L56">		boolean logged_in = false;</span>
+<span class="nc" id="L57">		String sql = &quot;select * from users where username = ? and user_password = ?&quot;;</span>
+			
+		try{
+<span class="nc" id="L60">			PreparedStatement ps = con.prepareStatement(sql);</span>
+<span class="nc" id="L61">			ps.setString(1, username);</span>
+<span class="nc" id="L62">			ps.setString(2, password);</span>
+<span class="nc" id="L63">			ResultSet rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">			while(rs.next()) {</span>
+<span class="nc bnc" id="L65" title="All 4 branches missed.">				logged_in = username.equals(rs.getString(&quot;username&quot;)) &amp;&amp; password.equals(rs.getString(&quot;user_password&quot;));</span>
+			}
+<span class="nc" id="L67">		}catch(SQLException e) {</span>
+<span class="nc" id="L68">			System.out.println(e);</span>
+		}finally {
+<span class="nc" id="L70">			try {</span>
+<span class="nc bnc" id="L71" title="All 6 branches missed.">				if(con != null) {</span>
+<span class="nc" id="L72">					con.close();</span>
+				}
+<span class="nc" id="L74">			}catch(SQLException se) {</span>
+<span class="nc" id="L75">				se.printStackTrace();</span>
+<span class="nc" id="L76">			}</span>
+<span class="nc" id="L77">		}</span>
+<span class="nc" id="L78">		return logged_in;</span>
+	}
+
+	@Override
+	public void updateUser(User user) {
+<span class="nc" id="L83">		Connection con = ConnectionUtil.getConnection();</span>
+<span class="nc" id="L84">		String sql = &quot;{call promote_super(?)}&quot;;</span>
+		CallableStatement cstmt;
+		
+		try {
+<span class="nc" id="L88">			cstmt = con.prepareCall(sql);</span>
+<span class="nc" id="L89">			cstmt.setInt(1, user.getUserId());</span>
+<span class="nc" id="L90">			cstmt.execute();</span>
+<span class="nc" id="L91">			System.out.println(&quot;User Promoted&quot;);</span>
+<span class="nc" id="L92">		}catch(SQLException e) {</span>
+<span class="nc" id="L93">			e.printStackTrace();</span>
+		}finally {
+<span class="nc" id="L95">			try {</span>
+<span class="nc bnc" id="L96" title="All 6 branches missed.">				if(con!=null) {</span>
+<span class="nc" id="L97">					con.close();</span>
+				}
+<span class="nc" id="L99">			}catch(SQLException se) {</span>
+<span class="nc" id="L100">				se.printStackTrace();</span>
+<span class="nc" id="L101">			}</span>
+<span class="nc" id="L102">		}</span>
+
+<span class="nc" id="L104">	}</span>
+
+	@Override
+	public void deleteUser(User user) {
+<span class="nc" id="L108">		Connection con = ConnectionUtil.getConnection();</span>
+<span class="nc" id="L109">		String sql = &quot;{call delete_user(?)}&quot;;</span>
+		CallableStatement cstmt;
+		
+		try {
+<span class="nc" id="L113">			cstmt = con.prepareCall(sql);</span>
+<span class="nc" id="L114">			cstmt.setInt(1, user.getUserId());</span>
+<span class="nc" id="L115">			cstmt.execute();</span>
+<span class="nc" id="L116">			System.out.println(&quot;User Profile Closed&quot;);</span>
+<span class="nc" id="L117">		}catch(SQLException e){</span>
+<span class="nc" id="L118">			e.printStackTrace();</span>
+		}finally {
+<span class="nc bnc" id="L120" title="All 6 branches missed.">			if(con != null) {</span>
+				try {
+<span class="nc" id="L122">					con.close();</span>
+<span class="nc" id="L123">				} catch (SQLException e) {</span>
+<span class="nc" id="L124">					e.printStackTrace();</span>
+<span class="nc" id="L125">				}</span>
+			}
+<span class="nc" id="L127">		}</span>
+
+<span class="nc" id="L129">	}</span>
+
+	@Override
+	public User createUser(){
+<span class="nc" id="L133">		Connection con = ConnectionUtil.getConnection();</span>
+<span class="nc" id="L134">		User newRegister = new User();</span>
+<span class="nc" id="L135">		String password = &quot;&quot;;</span>
+		
+<span class="nc" id="L137">		Scanner input = new Scanner(System.in);</span>
+<span class="nc" id="L138">		boolean isLegalPassword = false;</span>
+<span class="nc" id="L139">		System.out.println(&quot;Enter a valid password:\n&quot;+</span>
+				&quot;*A valid password can contain letters, numbers, and the following symbols: [!,@,#,$,*,&amp;]*&quot;);
+<span class="nc bnc" id="L141" title="All 2 branches missed.">		while(!isLegalPassword) {</span>
+<span class="nc" id="L142">			String inputPassword = input.next();</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">			if(!inputPassword.matches(&quot;[a-zA-Z0-9|!|@|#|$|*|&amp;]*$&quot;)) {</span>
+<span class="nc" id="L144">				System.out.println(&quot;INVALID PASSWORD\nEnter a valid password:&quot;</span>
+						+&quot;\n*A valid password can contain letters, numbers, and the following symbols: [!,@,#,$,*,&amp;]*&quot;);
+			}else {
+<span class="nc" id="L147">				isLegalPassword = true;</span>
+<span class="nc" id="L148">				password = inputPassword;</span>
+			}
+<span class="nc" id="L150">		}</span>
+		
+<span class="nc" id="L152">		String sql = &quot;call create_user(?, ?, ?, ?)&quot;;</span>
+		
+		try{
+<span class="nc" id="L155">			PreparedStatement ps = con.prepareStatement(sql);</span>
+<span class="nc" id="L156">			ps.setString(1,newRegister.getFirstName());</span>
+<span class="nc" id="L157">			ps.setString(2, newRegister.getLastName());</span>
+<span class="nc" id="L158">			ps.setString(3, newRegister.getUsername());</span>
+<span class="nc" id="L159">			ps.setString(4, password);</span>
+<span class="nc" id="L160">			ps.executeQuery();</span>
+<span class="nc" id="L161">			System.out.println(&quot;User Registered&quot;);</span>
+<span class="nc" id="L162">		}catch(SQLException e) {</span>
+<span class="nc" id="L163">			System.out.println(&quot;REGISTRATION FAILED&quot;);</span>
+<span class="nc" id="L164">		}finally {</span>
+			
+<span class="nc" id="L166">		}</span>
+		
+		try {
+<span class="nc" id="L169">			PreparedStatement ps = con.prepareStatement(sql);</span>
+<span class="nc" id="L170">			sql = &quot;select user_id_sequence.currval from dual&quot;;</span>
+<span class="nc" id="L171">			ps = con.prepareStatement(sql);</span>
+<span class="nc" id="L172">			ResultSet rs = ps.executeQuery();</span>
+			
+<span class="nc bnc" id="L174" title="All 2 branches missed.">			while(rs.next()) {</span>
+<span class="nc" id="L175">				newRegister.setUserId(rs.getInt(1));</span>
+			}
+<span class="nc" id="L177">		}catch(SQLException e) {</span>
+<span class="nc" id="L178">			System.out.println(&quot;ID ASSIGNMENT FAILED&quot;);</span>
+<span class="nc" id="L179">		}</span>
+		
+<span class="nc" id="L181">		return newRegister;</span>
+	}
+
+	@Override
+	public User getUser(String username, String password) {
+<span class="nc" id="L186">		User loginAcct = null;</span>
+		
+<span class="nc" id="L188">		Connection con = ConnectionUtil.getConnection();</span>
+<span class="nc" id="L189">		String sql = &quot;select * from users where username = ? and user_password = ?&quot;;</span>
+		
+		try{
+<span class="nc" id="L192">			PreparedStatement ps = con.prepareStatement(sql);</span>
+<span class="nc" id="L193">			ps.setString(1, username);</span>
+<span class="nc" id="L194">			ps.setString(2, password);</span>
+<span class="nc" id="L195">			ResultSet rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">			while(rs.next()) {</span>
+<span class="nc" id="L197">				int userId = rs.getInt(&quot;user_id&quot;);</span>
+<span class="nc" id="L198">				String firstName = rs.getString(&quot;first_name&quot;);</span>
+<span class="nc" id="L199">				String lastName = rs.getString(&quot;last_name&quot;);</span>
+				boolean isSuper, isOpen;
+<span class="nc bnc" id="L201" title="All 2 branches missed.">				if(rs.getInt(&quot;is_super&quot;) == 1) {isSuper = true;}else {isSuper = false;}</span>
+<span class="nc bnc" id="L202" title="All 2 branches missed.">				if(rs.getInt(&quot;is_open&quot;) == 1) {isOpen = true;}else {isOpen = false;}</span>
+<span class="nc" id="L203">				loginAcct = new User(userId, firstName, lastName,username, isSuper, isOpen);</span>
+<span class="nc" id="L204">			}</span>
+<span class="nc" id="L205">		}catch(SQLException e) {</span>
+<span class="nc" id="L206">			System.out.println(e);</span>
+		}finally {
+<span class="nc" id="L208">			try {</span>
+<span class="nc bnc" id="L209" title="All 6 branches missed.">				if(con != null) {</span>
+<span class="nc" id="L210">					con.close();</span>
+				}
+<span class="nc" id="L212">			}catch(SQLException se) {</span>
+<span class="nc" id="L213">				se.printStackTrace();</span>
+<span class="nc" id="L214">			}</span>
+<span class="nc" id="L215">		}</span>
+<span class="nc" id="L216">		return loginAcct;</span>
+	}
+
+	@Override
+	public User getUser(int userId, List&lt;User&gt; users) {
+<span class="nc bnc" id="L221" title="All 2 branches missed.">		for(User user : users) {</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">			if(user.getUserId() == userId) {</span>
+<span class="nc" id="L223">				return user;</span>
+			 }
+<span class="nc" id="L225">		}</span>
+<span class="nc" id="L226">		System.out.println(&quot;USER NOT FOUND&quot;);</span>
+<span class="nc" id="L227">		return null;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserMgmt.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JDBCBank</a> &gt; <a href="index.source.html" class="el_package">users</a> &gt; <span class="el_source">UserMgmt.java</span></div><h1>UserMgmt.java</h1><pre class="source lang-java linenums">package users;
+
+import java.util.Collections;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
+import accounts.Account;
+import accounts.AcctDaoImpl;
+import application.Menus;
+
+<span class="nc" id="L12">public class UserMgmt {</span>
+	
+<span class="nc" id="L14">	private static Scanner input = new Scanner(System.in);</span>
+	
+	public static void administrative(User user) {
+<span class="nc" id="L17">		UserDaoImpl userdi = new UserDaoImpl();</span>
+<span class="nc" id="L18">		AcctDaoImpl acctdi = new AcctDaoImpl();</span>
+<span class="nc" id="L19">		List&lt;User&gt; users = userdi.getAllUsers();</span>
+<span class="nc" id="L20">		List&lt;Account&gt; accts = acctdi.getAllAccounts();</span>
+		
+<span class="nc" id="L22">		boolean isHere = true;</span>
+		do {
+<span class="nc" id="L24">			System.out.println(&quot;Type in one of the following commands: \n&quot;</span>
+					+ &quot;'USERS'\t'CREATE USER'\t'DELETE USER'\n'PROMOTE USER'\t'ACCOUNTS'\t'MAIN MENU'&quot;);
+<span class="nc" id="L26">			String commandInput = input.nextLine();</span>
+			
+<span class="nc bnc" id="L28" title="All 2 branches missed.">			if(commandInput.toLowerCase().trim().equals(&quot;users&quot;)) {</span>
+<span class="nc" id="L29">				userList(users);</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">			}else if(commandInput.toLowerCase().trim().equals(&quot;create user&quot;)) {</span>
+<span class="nc" id="L31">				userdi.createUser();</span>
+<span class="nc" id="L32">				users = userdi.getAllUsers();</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">			}else if(commandInput.toLowerCase().trim().equals(&quot;delete user&quot;)) {</span>
+<span class="nc" id="L34">				deleteUser(userdi, users);</span>
+<span class="nc" id="L35">				users = userdi.getAllUsers();</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">			}else if(commandInput.toLowerCase().trim().equals(&quot;promote user&quot;)) {</span>
+<span class="nc" id="L37">				promoteUser(userdi, users);</span>
+<span class="nc" id="L38">				users = userdi.getAllUsers();</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">			}else if(commandInput.toLowerCase().trim().equals(&quot;accounts&quot;)) {</span>
+<span class="nc" id="L40">				acctList(accts);</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">			}else if(commandInput.toLowerCase().trim().equals(&quot;main menu&quot;)) {</span>
+<span class="nc" id="L42">				isHere = false;</span>
+<span class="nc" id="L43">				Menus.toUserMenu(user);</span>
+			}else {
+<span class="nc" id="L45">				System.out.println(&quot;The input did not match any of the listed commands.&quot;);</span>
+			}
+<span class="nc bnc" id="L47" title="All 2 branches missed.">		}while(isHere);</span>
+<span class="nc" id="L48">	}</span>
+	
+	private static void userList(List&lt;User&gt; users) {
+<span class="nc" id="L51">		System.out.println(&quot;User ID\tFirst Name\tLast Name\tUsername\t\tAdministrator\tActive&quot;);</span>
+<span class="nc" id="L52">		Collections.sort(users);</span>
+		
+<span class="nc bnc" id="L54" title="All 2 branches missed.">		for(User user : users) {</span>
+<span class="nc" id="L55">			String userid = String.format(&quot;%05d&quot;, user.getUserId());</span>
+<span class="nc" id="L56">			String firstName = String.format(&quot;%-15s&quot;, user.getFirstName());</span>
+<span class="nc" id="L57">			String lastName = String.format(&quot;%-15s&quot;, user.getLastName());</span>
+<span class="nc" id="L58">			String username = String.format(&quot;%-20s&quot;, user.getUsername());</span>
+<span class="nc" id="L59">			System.out.println(userid+&quot;\t&quot;+firstName+&quot;\t&quot;+lastName+&quot;\t&quot;+username+&quot;\t&quot;+user.isAdmin()+&quot;\t\t\t&quot;+user.isOpen());</span>
+<span class="nc" id="L60">		}</span>
+<span class="nc" id="L61">	}</span>
+	
+	private static void deleteUser(UserDaoImpl userdi, List&lt;User&gt; users) {
+<span class="nc" id="L64">		Scanner in = new Scanner(System.in);</span>
+<span class="nc" id="L65">		System.out.println(&quot;Which user would you like to delete?\n&quot;</span>
+				+ &quot;USER ID: &quot;);
+<span class="nc" id="L67">		int userId = 0;</span>
+		try {
+<span class="nc" id="L69">			userId = in.nextInt();</span>
+<span class="nc" id="L70">		}catch(InputMismatchException ime) {</span>
+<span class="nc" id="L71">			System.out.println(&quot;INPUT MUST BE INTEGER&quot;);</span>
+<span class="nc" id="L72">			deleteUser(userdi, users);</span>
+<span class="nc" id="L73">			return;</span>
+<span class="nc" id="L74">		}</span>
+<span class="nc" id="L75">		User user = userdi.getUser(userId, users);</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">		if(user != null) {</span>
+<span class="nc" id="L77">			userdi.deleteUser(user);</span>
+		}else {
+<span class="nc" id="L79">			deleteUser(userdi, users);</span>
+<span class="nc" id="L80">			return;</span>
+		}
+<span class="nc" id="L82">	}</span>
+	
+	private static void promoteUser(UserDaoImpl userdi, List&lt;User&gt; users) {
+<span class="nc" id="L85">		System.out.println(&quot;Which user are you promoting?\n&quot;</span>
+				+ &quot;USER ID:&quot;);
+<span class="nc" id="L87">		int userid = 0;</span>
+		try {
+<span class="nc" id="L89">			userid = input.nextInt();</span>
+<span class="nc" id="L90">		}catch(InputMismatchException ime) {</span>
+<span class="nc" id="L91">			System.out.println(&quot;INPUT MUST BE INTEGER&quot;);</span>
+<span class="nc" id="L92">			promoteUser(userdi, users);</span>
+<span class="nc" id="L93">			return;</span>
+<span class="nc" id="L94">		}</span>
+<span class="nc" id="L95">		User user = userdi.getUser(userid, users);</span>
+<span class="nc" id="L96">		userdi.updateUser(user);</span>
+		
+<span class="nc" id="L98">	}</span>
+	
+	private static void acctList(List&lt;Account&gt; accts) {
+<span class="nc" id="L101">		System.out.println(&quot;Account Number\tUser ID\tAccout Creation\tStatus&quot;);</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">		for(Account account : accts){</span>
+			String status;
+<span class="nc bnc" id="L104" title="All 2 branches missed.">			if(account.isOpen()) {status = &quot;Open&quot;;}else {status = &quot;Closed&quot;;}</span>
+<span class="nc" id="L105">			String acctNum = String.format(&quot;%05d&quot;, account.getAccoutNumber());</span>
+<span class="nc" id="L106">			String userId = String.format(&quot;%05d&quot;, account.getUserId());</span>
+<span class="nc" id="L107">			System.out.println(acctNum+&quot;\t\t\t&quot;+userId+&quot;\t&quot;+account.getCreationDay()+&quot;\t\t&quot;+status);</span>
+<span class="nc" id="L108">		}</span>
+<span class="nc" id="L109">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

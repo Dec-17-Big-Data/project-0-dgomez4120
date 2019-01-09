@@ -1,0 +1,146 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9216C26D-DDC2-00F1-0FBA-486B2A26EF97" schemaObject="AF1808A8-DB34-98BA-8DEB-B6ED294E33D8" name="TRANSACTIONS">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>DGOMEZ4120</sourceObjSchema>
+<sourceObjName>TRANSACTIONS</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:19 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="TRANSACTION_ID" id="A3CE24DD-F499-D580-B522-BB82B0BD22C1">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>TRANSACTIONS</sourceObjSchema>
+<sourceObjName>TRANSACTION_ID</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>38</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,38,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USER_ID" id="CDB11C45-AFDA-CD3D-CAE4-8A3C1D1FE1B3">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>TRANSACTIONS</sourceObjSchema>
+<sourceObjName>USER_ID</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C5B0268B-0276-D8C8-1ED1-B435D4F1B776" referredColumn="F05781B0-03A5-B39F-0EED-E4C52047EE7E"/>
+</associations>
+</Column>
+<Column name="ACCOUNT_NUMBER" id="5AC05C5A-95CA-6023-403B-33C3F7C458C7">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>TRANSACTIONS</sourceObjSchema>
+<sourceObjName>ACCOUNT_NUMBER</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>16</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,16,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FA19C76F-F176-A5D0-8BBE-E8C127D584F2" referredColumn="7D3A1308-CD1C-E70E-47DC-0FA616A1AF76"/>
+</associations>
+</Column>
+<Column name="IS_WITHDRAWL" id="392E4F44-E0FC-C95B-ACA3-B399D658B1F6">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>TRANSACTIONS</sourceObjSchema>
+<sourceObjName>IS_WITHDRAWL</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,1,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TRANSACTION_AMOUNT" id="E9D25791-4BE1-2F49-97C3-1CC380A155DC">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>TRANSACTIONS</sourceObjSchema>
+<sourceObjName>TRANSACTION_AMOUNT</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT021</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TRANSACTION_TIMESTAMP" id="6E8C52BD-26F1-8B9F-894C-031C2F9D6B2D">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>TRANSACTIONS</sourceObjSchema>
+<sourceObjName>TRANSACTION_TIMESTAMP</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<defaultValue>(systimestamp)</defaultValue>
+<ownDataTypeParameters>,6,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="CD7FCD35-E6CD-109D-8F67-33BE53D81266" schemaObject="AF1808A8-DB34-98BA-8DEB-B6ED294E33D8" name="TRANSACTIONS_PK">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>DGOMEZ4120</sourceObjSchema>
+<sourceObjName>SYS_C005834</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:22 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A3CE24DD-F499-D580-B522-BB82B0BD22C1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BE79C03C-0C12-26D1-58E4-21FCF5022E9E" name="ACCOUNT_NUMBER_FK">
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:24 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5AC05C5A-95CA-6023-403B-33C3F7C458C7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A2E476D0-AD80-CD91-C1F5-7905B891F595" name="USER_ID_FK2">
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:24 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CDB11C45-AFDA-CD3D-CAE4-8A3C1D1FE1B3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

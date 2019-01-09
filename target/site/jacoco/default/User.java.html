@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JDBCBank</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">import java.io.Serializable;
+import java.util.Scanner;
+
+
+public class User implements Serializable, Comparable&lt;User&gt;{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4368513462082007773L;
+	
+	private int userId;
+	private String firstName, lastName, username;
+	private boolean isAdmin, isOpen;
+	
+<span class="pc" id="L16">	private Scanner input = new Scanner(System.in);</span>
+	
+<span class="nc" id="L18">	public User() {</span>
+<span class="nc" id="L19">		this.setFirstName();</span>
+<span class="nc" id="L20">		this.setLastName();</span>
+<span class="nc" id="L21">		this.setUsername();</span>
+<span class="nc" id="L22">		this.setIsAdmin(false);</span>
+<span class="nc" id="L23">		this.setIsOpen(true);</span>
+<span class="nc" id="L24">	}</span>
+<span class="fc" id="L25">	public User(int userId, String firstName, String lastName, String username, boolean isAdmin, boolean isOpen) {</span>
+<span class="fc" id="L26">		this.userId = userId;</span>
+<span class="fc" id="L27">		this.firstName = firstName;</span>
+<span class="fc" id="L28">		this.lastName = lastName;</span>
+<span class="fc" id="L29">		this.username = username;</span>
+<span class="fc" id="L30">		this.isAdmin = isAdmin;</span>
+<span class="fc" id="L31">		this.isOpen = isOpen;</span>
+<span class="fc" id="L32">	}</span>
+	
+	public void setFirstName() {
+<span class="nc" id="L35">		boolean isLegalFirstName = false;</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">		while(!isLegalFirstName) {</span>
+<span class="nc" id="L37">			System.out.println(&quot;First name: &quot;);</span>
+<span class="nc" id="L38">			String inputFirstName = input.nextLine();</span>
+<span class="nc" id="L39">			inputFirstName = inputFirstName.trim();</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">			if(!inputFirstName.matches(&quot;^[ A-Za-z]+$&quot;)) {</span>
+<span class="nc" id="L41">				System.out.println(&quot;The first name must only contain letters, please try again.&quot;);</span>
+<span class="nc" id="L42">			}else {</span>
+<span class="nc" id="L43">				isLegalFirstName = true;</span>
+<span class="nc" id="L44">				inputFirstName = inputFirstName.substring(0,1).toUpperCase()+inputFirstName.substring(1).toLowerCase();</span>
+<span class="nc" id="L45">				this.firstName = inputFirstName;</span>
+			}
+		}
+<span class="nc" id="L48">	}</span>
+	
+	public void setLastName() {
+<span class="nc" id="L51">		boolean isLegalLastName = false;</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">		while(!isLegalLastName) {</span>
+<span class="nc" id="L53">			System.out.println(&quot;Last name: &quot;);</span>
+<span class="nc" id="L54">			String inputLastName = input.nextLine();</span>
+<span class="nc" id="L55">			inputLastName = inputLastName.trim();</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">			if(!inputLastName.matches(&quot;^[ A-Za-z]+$&quot;)) {</span>
+<span class="nc" id="L57">				System.out.println(&quot;The last name must only contain letters, please try again.&quot;);</span>
+<span class="nc" id="L58">			}else {</span>
+<span class="nc" id="L59">				isLegalLastName = true;</span>
+<span class="nc" id="L60">				inputLastName = inputLastName.substring(0, 1).toUpperCase()+inputLastName.substring(1).toLowerCase();</span>
+<span class="nc" id="L61">				this.lastName = inputLastName;</span>
+			}
+		}
+<span class="nc" id="L64">	}</span>
+	
+	public void setUsername() {
+<span class="nc" id="L67">		boolean isLegalUsername = false;</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">		while(!isLegalUsername) {</span>
+<span class="nc" id="L69">			System.out.println(&quot;Enter a valid username:\n&quot;</span>
+					+ &quot;*A valid username must begin with a letter and contain only numbers and letters(SPACES WILL BE REMOVED)*&quot;);
+<span class="nc" id="L71">			String inputUsername = input.nextLine();</span>
+<span class="nc" id="L72">			inputUsername = inputUsername.replaceAll(&quot;\\s&quot;,&quot;&quot;);</span>
+<span class="nc bnc" id="L73" title="All 4 branches missed.">			if(!Character.isLetter(inputUsername.charAt(0)) || !inputUsername.chars().allMatch(Character::isLetterOrDigit)) {</span>
+<span class="nc" id="L74">				System.out.println(&quot;This username is not valid.\nEnter a valid username.&quot;);</span>
+<span class="nc" id="L75">			}else {</span>
+<span class="nc" id="L76">				isLegalUsername = true;</span>
+<span class="nc" id="L77">				this.username = inputUsername;</span>
+			}
+		}
+<span class="nc" id="L80">	}</span>
+	
+	public void setIsAdmin(boolean flag){
+<span class="nc" id="L83">		this.isAdmin = flag;</span>
+<span class="nc" id="L84">	}</span>
+	
+	public void setIsOpen(boolean flag) {
+<span class="nc" id="L87">		this.isOpen = flag;</span>
+<span class="nc" id="L88">	}</span>
+
+	public void setUserId(int userId) {
+<span class="nc" id="L91">		this.userId = userId;</span>
+<span class="nc" id="L92">	}</span>
+	
+	public String getFirstName() {
+<span class="nc" id="L95">		return this.firstName;</span>
+	}
+	
+	public String getLastName() {
+<span class="nc" id="L99">		return this.lastName;</span>
+	}
+	
+	public String getUsername() {
+<span class="nc" id="L103">		return this.username;</span>
+	}
+	
+	public boolean isAdmin() {
+<span class="nc" id="L107">		return this.isAdmin;</span>
+	}
+	
+	public boolean isOpen() {
+<span class="nc" id="L111">		return this.isOpen;</span>
+	}
+	
+	public int getUserId() {
+<span class="nc" id="L115">		return this.userId;</span>
+	}
+	
+	public boolean equals(User user2) {
+<span class="nc bnc" id="L119" title="All 2 branches missed.">		if(this.getUserId() == user2.getUserId() </span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">				&amp;&amp; this.getFirstName().equals(user2.getFirstName())</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">				&amp;&amp; this.getLastName().equals(user2.getLastName())</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">				&amp;&amp; this.getUsername().equals(user2.getUsername())</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">				&amp;&amp; (this.isAdmin() == user2.isAdmin())</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">				&amp;&amp; (this.isOpen() == user2.isOpen())) {</span>
+<span class="nc" id="L125">			return true;</span>
+		}else {
+<span class="nc" id="L127">			return false;</span>
+		}
+	}
+	@Override
+	public int compareTo(User arg0) {
+<span class="nc bnc" id="L132" title="All 2 branches missed.">		if(this.getUserId() &lt; arg0.getUserId()) {</span>
+<span class="nc" id="L133">			return -1;</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">		}else if(this.getUserId() &gt; arg0.getUserId()) {</span>
+<span class="nc" id="L135">			return 1;</span>
+		}
+<span class="nc" id="L137">		return 0;</span>
+	}
+		
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

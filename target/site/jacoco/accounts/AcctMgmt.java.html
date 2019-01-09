@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AcctMgmt.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JDBCBank</a> &gt; <a href="index.source.html" class="el_package">accounts</a> &gt; <span class="el_source">AcctMgmt.java</span></div><h1>AcctMgmt.java</h1><pre class="source lang-java linenums">package accounts;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
+import application.Console;
+import application.Menus;
+import transactions.TranDaoImpl;
+import transactions.Transaction;
+import users.User;
+
+
+<span class="nc" id="L13">public class AcctMgmt {</span>
+	
+<span class="nc" id="L15">	private static Scanner input = new Scanner(System.in);</span>
+	
+	public static void viewAcct(User user) throws SQLException{
+<span class="nc" id="L18">		Console.clearScreen();</span>
+<span class="nc" id="L19">		AcctDaoImpl acctdi = new AcctDaoImpl();</span>
+<span class="nc" id="L20">		TranDaoImpl trandi = new TranDaoImpl();</span>
+		
+<span class="nc" id="L22">		List&lt;Account&gt; accounts = acctdi.getUserAccounts(user);</span>
+<span class="nc" id="L23">		List&lt;Transaction&gt; transactions = trandi.getUserTransactions(user);</span>
+		
+		
+<span class="nc bnc" id="L26" title="All 2 branches missed.">		while(accounts.size() == 0) {</span>
+<span class="nc" id="L27">			Console.clearScreen();</span>
+<span class="nc" id="L28">			System.out.println(&quot;Type in one of the following commands: \n&quot;</span>
+					+ &quot;'CREATE NEW ACCOUNT'\t'MAIN MENU'\t'LOGOUT'&quot;);
+<span class="nc" id="L30">			String inputMethod = input.nextLine();</span>
+			
+<span class="nc bnc" id="L32" title="All 2 branches missed.">			if(inputMethod.toLowerCase().trim().equals(&quot;create new account&quot;)) {</span>
+<span class="nc" id="L33">				acctdi.createAccount(user);</span>
+<span class="nc" id="L34">				accounts = acctdi.getUserAccounts(user);</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">			}else if(inputMethod.toLowerCase().trim().equals(&quot;main menu&quot;)) {</span>
+<span class="nc" id="L36">				Menus.toUserMenu(user);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">			}else if(inputMethod.toLowerCase().trim().equals(&quot;logout&quot;)) {</span>
+<span class="nc" id="L38">				Console.main(null);</span>
+			}else {
+<span class="nc" id="L40">				System.out.println(&quot;The input was not one of the listed commands.&quot;);</span>
+			}
+<span class="nc" id="L42">		}</span>
+		
+<span class="nc" id="L44">		System.out.println(&quot;Account Number \tAccount Creation \tBalance&quot;);</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">		for(Account account : accounts) {</span>
+<span class="nc" id="L46">			String acctNum = String.format(&quot;%05d&quot;, account.getAccoutNumber());</span>
+<span class="nc" id="L47">			String acctBal = String.format(&quot;%4.2f&quot;, account.getAccountBalance());</span>
+<span class="nc" id="L48">			System.out.println(acctNum+&quot;\t\t\t&quot;+account.getCreationDay()+&quot;\t\t&quot;+acctBal);	</span>
+<span class="nc" id="L49">		}</span>
+			
+<span class="nc" id="L51">		boolean isAcctMenu = true;</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">			while(isAcctMenu) {</span>
+<span class="nc" id="L53">				System.out.println(&quot;Type in one of the following commands:\n&quot;</span>
+						+ &quot;'CREATE NEW ACCOUNT'\t'TRANSACTION HISTORY'\t'WITHDRAW'\n'DEPOSIT'\t'DELETE ACCOUNT'\t'MAIN MENU'\t'LOGOUT'&quot;);
+				
+<span class="nc" id="L56">				String inputMethod = input.nextLine();</span>
+				
+<span class="nc bnc" id="L58" title="All 2 branches missed.">				if(inputMethod.toLowerCase().trim().equals(&quot;create new account&quot;)) {</span>
+<span class="nc" id="L59">					acctdi.createAccount(user);</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">				}else if(inputMethod.toLowerCase().trim().equals(&quot;transaction history&quot;)) {</span>
+<span class="nc" id="L61">					transHist(user, transactions);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">				}else if(inputMethod.toLowerCase().trim().equals(&quot;withdraw&quot;)){</span>
+<span class="nc" id="L63">					trandi.createTransaction(user, true, accounts);</span>
+<span class="nc" id="L64">					transactions = trandi.getUserTransactions(user);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">				}else if(inputMethod.toLowerCase().trim().equals(&quot;deposit&quot;)) {</span>
+<span class="nc" id="L66">					trandi.createTransaction(user, false, accounts);</span>
+<span class="nc" id="L67">					transactions = trandi.getUserTransactions(user);</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">				}else if(inputMethod.toLowerCase().trim().equals(&quot;delete account&quot;)) {</span>
+<span class="nc" id="L69">					acctdi.deleteAccount(user, accounts);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">				}else if(inputMethod.toLowerCase().trim().equals(&quot;main menu&quot;)) {</span>
+<span class="nc" id="L71">					isAcctMenu = false;</span>
+<span class="nc" id="L72">					Menus.toUserMenu(user);</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">				}else if(inputMethod.toLowerCase().trim().equals(&quot;logout&quot;)) {</span>
+<span class="nc" id="L74">					isAcctMenu = false;</span>
+<span class="nc" id="L75">					Console.main(null);</span>
+				}else {
+<span class="nc" id="L77">					System.out.println(&quot;The input was not one of the listed commands.&quot;);</span>
+				}
+<span class="nc" id="L79">			}</span>
+		
+<span class="nc" id="L81">	}</span>
+ static void transHist(User user, List&lt;Transaction&gt; transactions) {
+<span class="nc" id="L83">			System.out.println(&quot;Account Number \tTransaction Type \tTransaction Time\t\tAmount&quot;);</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">			for(Transaction transaction : transactions) {</span>
+				String transType;
+<span class="nc bnc" id="L86" title="All 2 branches missed.">				if(transaction.isWithdraw()) {transType = &quot;Withdraw&quot;;}else {transType = &quot;Deposit\t&quot;;}</span>
+<span class="nc" id="L87">				String acctNum = String.format(&quot;%05d&quot;, transaction.getAccountNumber());</span>
+<span class="nc" id="L88">				String tranAmt = String.format(&quot;%4.2f&quot;, transaction.getTransactionAmount());</span>
+<span class="nc" id="L89">				System.out.println(acctNum+&quot;\t\t\t&quot;+transType+&quot;\t\t&quot;+transaction.getTransactionDate()</span>
+<span class="nc" id="L90">					+&quot; &quot;+transaction.getTransactionTime()+&quot;\t\t&quot;+tranAmt);	</span>
+<span class="nc" id="L91">			}</span>
+<span class="nc" id="L92">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

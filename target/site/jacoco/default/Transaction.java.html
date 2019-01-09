@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Transaction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JDBCBank</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Transaction.java</span></div><h1>Transaction.java</h1><pre class="source lang-java linenums">import java.time.LocalDate;
+import java.time.LocalTime;
+
+<span class="nc" id="L4">public class Transaction {</span>
+
+	private int transactionId, accountNumber, userID;
+	private boolean isWithdraw;
+	private LocalDate transactionDate;
+	private LocalTime transactionTime; 
+	private float transactionAmount;
+	
+	public int getTransactionId() {
+<span class="nc" id="L13">		return transactionId;</span>
+	}
+	public void setTransactionId(int transactionId) {
+<span class="nc" id="L16">		this.transactionId = transactionId;</span>
+<span class="nc" id="L17">	}</span>
+	public int getAccountNumber() {
+<span class="nc" id="L19">		return accountNumber;</span>
+	}
+	public void setAccountNumber(int accountNumber) {
+<span class="nc" id="L22">		this.accountNumber = accountNumber;</span>
+<span class="nc" id="L23">	}</span>
+	public int getUserID() {
+<span class="nc" id="L25">		return userID;</span>
+	}
+	public void setUserID(int userID) {
+<span class="nc" id="L28">		this.userID = userID;</span>
+<span class="nc" id="L29">	}</span>
+	public boolean isWithdraw() {
+<span class="nc" id="L31">		return isWithdraw;</span>
+	}
+	public void setWithdraw(boolean isWithdraw) {
+<span class="nc" id="L34">		this.isWithdraw = isWithdraw;</span>
+<span class="nc" id="L35">	}</span>
+	public LocalDate getTransactionDate() {
+<span class="nc" id="L37">		return transactionDate;</span>
+	}
+	public void setTransactionDate(LocalDate transactionDate) {
+<span class="nc" id="L40">		this.transactionDate = transactionDate;</span>
+<span class="nc" id="L41">	}</span>
+	public LocalTime getTransactionTime() {
+<span class="nc" id="L43">		return transactionTime;</span>
+	}
+	public void setTransactionTime(LocalTime transactionTime) {
+<span class="nc" id="L46">		this.transactionTime = transactionTime;</span>
+<span class="nc" id="L47">	}</span>
+	public float getTransactionAmount() {
+<span class="nc" id="L49">		return transactionAmount;</span>
+	}
+	public void setTransactionAmount(float transactionAmount) {
+<span class="nc" id="L52">		this.transactionAmount = transactionAmount;</span>
+<span class="nc" id="L53">	}</span>
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

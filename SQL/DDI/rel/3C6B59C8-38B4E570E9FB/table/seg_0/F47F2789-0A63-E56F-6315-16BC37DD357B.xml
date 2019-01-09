@@ -1,0 +1,148 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F47F2789-0A63-E56F-6315-16BC37DD357B" schemaObject="AF1808A8-DB34-98BA-8DEB-B6ED294E33D8" name="USERS">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>DGOMEZ4120</sourceObjSchema>
+<sourceObjName>USERS</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:19 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="USER_ID" id="F05781B0-03A5-B39F-0EED-E4C52047EE7E">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>USERS</sourceObjSchema>
+<sourceObjName>USER_ID</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FIRST_NAME" id="DC259A0D-111A-4398-E027-4E91F6214F4C">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>USERS</sourceObjSchema>
+<sourceObjName>FIRST_NAME</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<ownDataTypeParameters>255 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_NAME" id="ABF06A0A-A488-E9BA-F65C-B23CA746E6CE">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>USERS</sourceObjSchema>
+<sourceObjName>LAST_NAME</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<ownDataTypeParameters>255 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USERNAME" id="58B65687-1141-FCFF-E947-C346FC232A49">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>USERS</sourceObjSchema>
+<sourceObjName>USERNAME</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<ownDataTypeParameters>255 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USER_PASSWORD" id="D0691636-715F-A197-1B99-078FD2EC340C">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>USERS</sourceObjSchema>
+<sourceObjName>USER_PASSWORD</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<ownDataTypeParameters>255 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_SUPER" id="51CD1537-BFB9-88DE-5AAC-36A264747F28">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>USERS</sourceObjSchema>
+<sourceObjName>IS_SUPER</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<defaultValue>(0)</defaultValue>
+<ownDataTypeParameters>,1,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_OPEN" id="52EEA724-BBD8-142C-13D8-F2B2BD67A118">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>USERS</sourceObjSchema>
+<sourceObjName>IS_OPEN</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:20 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<defaultValue>(1)</defaultValue>
+<ownDataTypeParameters>,1,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="F6B1BF7C-7AA9-462C-E125-BA5C6B2E204D" schemaObject="AF1808A8-DB34-98BA-8DEB-B6ED294E33D8" name="USERS_PK">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>DGOMEZ4120</sourceObjSchema>
+<sourceObjName>SYS_C005825</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:22 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F05781B0-03A5-B39F-0EED-E4C52047EE7E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1DABD04C-3934-6246-15A2-D98034639414" schemaObject="AF1808A8-DB34-98BA-8DEB-B6ED294E33D8" name="USERS_USERNAME_UN">
+<sourceConnName>JDBC</sourceConnName>
+<sourceObjSchema>DGOMEZ4120</sourceObjSchema>
+<sourceObjName>SYS_C005826</sourceObjName>
+<createdBy>diego</createdBy>
+<createdTime>2019-01-08 18:14:22 UTC</createdTime>
+<ownerDesignName>DDI</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="58B65687-1141-FCFF-E947-C346FC232A49"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

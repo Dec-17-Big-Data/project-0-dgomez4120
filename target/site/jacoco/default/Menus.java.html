@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Menus.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JDBCBank</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Menus.java</span></div><h1>Menus.java</h1><pre class="source lang-java linenums">
+import java.sql.SQLException;
+import java.util.Scanner;
+
+<span class="nc" id="L5">public class Menus {</span>
+	
+<span class="nc" id="L7">	private static Scanner input = new Scanner(System.in);</span>
+	
+	protected static void toUserMenu(User user) {
+<span class="nc bnc" id="L10" title="All 2 branches missed.">		if(user.isAdmin()) {</span>
+<span class="nc" id="L11">			superMenu(user);</span>
+<span class="nc" id="L12">		}else {</span>
+<span class="nc" id="L13">			userMenu(user);</span>
+		}
+<span class="nc" id="L15">	}</span>
+	
+	protected static void superMenu(User user) {
+		
+<span class="nc" id="L19">		boolean isValidCommand = false;</span>
+<span class="nc" id="L20">		Console.clearScreen();</span>
+<span class="nc" id="L21">		System.out.println(&quot;Welcome to JDBC Bank, &quot;+user.getFirstName()+&quot; &quot;+user.getLastName());</span>
+<span class="nc" id="L22">		System.out.println(&quot;How can we help you today?&quot;);</span>
+		
+<span class="nc bnc" id="L24" title="All 2 branches missed.">		while(!isValidCommand) {</span>
+<span class="nc" id="L25">			System.out.println(&quot;Type out one of the following commands:&quot;);</span>
+<span class="nc" id="L26">			System.out.println(&quot;'ADMINISTRATIVE'\t'PERSONAL ACCOUNTS'\t'LOGOUT'&quot;);</span>
+			
+<span class="nc" id="L28">			String inputMethod = input.nextLine();</span>
+			
+<span class="nc bnc" id="L30" title="All 2 branches missed.">			if(inputMethod.toLowerCase().trim().equals(&quot;administrative&quot;)) {</span>
+<span class="nc" id="L31">				isValidCommand = true;</span>
+<span class="nc" id="L32">				UserMgmt.administrative(user);</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">			}else if(inputMethod.toLowerCase().trim().equals(&quot;personal accounts&quot;)) {</span>
+<span class="nc" id="L34">				isValidCommand = true;</span>
+<span class="nc" id="L35">				try{AcctMgmt.viewAcct(user);}catch(SQLException e) {}</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">			}else if(inputMethod.toLowerCase().trim().equals(&quot;logout&quot;)) {</span>
+<span class="nc" id="L37">				isValidCommand = true;</span>
+<span class="nc" id="L38">				Console.main(null);</span>
+<span class="nc" id="L39">			}else {</span>
+<span class="nc" id="L40">				System.out.println(&quot;The input did not match any of the listed commands.&quot;);</span>
+			}
+		}
+	
+<span class="nc" id="L44">	}</span>
+	
+	protected static void userMenu(User user) {
+<span class="nc" id="L47">		Console.clearScreen();</span>
+<span class="nc" id="L48">		boolean isValidCommand = false;</span>
+		
+<span class="nc" id="L50">		System.out.println(&quot;Welcome to JDBC Bank, &quot;+user.getFirstName()+&quot; &quot;+user.getLastName());</span>
+<span class="nc" id="L51">		System.out.println(&quot;How can we help you today?&quot;);</span>
+		
+<span class="nc bnc" id="L53" title="All 2 branches missed.">		while(!isValidCommand) {</span>
+<span class="nc" id="L54">			System.out.println(&quot;Type out one of the following commands:&quot;);</span>
+<span class="nc" id="L55">			System.out.println(&quot;'VIEW ACCOUNTS'\t'LOGOUT'&quot;);</span>
+			
+<span class="nc" id="L57">			String inputMethod = input.nextLine();</span>
+			
+<span class="nc bnc" id="L59" title="All 2 branches missed.">			if(inputMethod.toLowerCase().trim().equals(&quot;view accounts&quot;)) {</span>
+<span class="nc" id="L60">				isValidCommand = true;</span>
+				try{
+<span class="nc" id="L62">					AcctMgmt.viewAcct(user);</span>
+<span class="nc" id="L63">				}catch(SQLException e) {}</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">			}else if(inputMethod.toLowerCase().trim().equals(&quot;logout&quot;)) {</span>
+<span class="nc" id="L65">				isValidCommand = true;</span>
+<span class="nc" id="L66">				Console.main(null);</span>
+<span class="nc" id="L67">			}else {</span>
+<span class="nc" id="L68">				System.out.println(&quot;The input did not match any of the listed commands.&quot;);</span>
+			}
+		}
+	
+<span class="nc" id="L72">	}</span>
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
